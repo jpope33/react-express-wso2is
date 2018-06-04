@@ -18,4 +18,9 @@ router.post('/login/callback',
 	}
 );
 
+router.get('/logout', (req,res)=> {
+	req.logout();
+	res.redirect('/');
+});
+
 module.exports = router;
