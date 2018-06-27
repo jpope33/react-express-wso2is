@@ -7,7 +7,8 @@ const mongoose = require('mongoose');
 const app = express();
 
 // define route(s)
-const samlRoute = require('./routes/saml');
+const saml = require('./routes/saml');
+const authCheck = require('./routes/authcheck');
 
 // setup view engine
 app.set('view engine', 'ejs');
@@ -57,7 +58,8 @@ app.get('/', (req,res)=> {
 });
 
 // map routes
-app.use('/saml', samlRoute);
+app.use('/saml', saml);
+app.use('/authcheck', authCheck);
 
 // spin up on 3001
 app.listen(3001, ()=> {

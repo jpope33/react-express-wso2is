@@ -56,7 +56,7 @@ const samlStrategy = new SamlStrategy({
     nameID: profile.nameID,
     nameIDFormat:profile.nameIDFormat
   }).save().then((user)=> {
-    console.log("User Object: " + user);
+    console.log("MongoDB User object: " + user);
     return done(null, user);
   });
 });
@@ -65,7 +65,7 @@ passport.use(samlStrategy);
 
 router.get('/login',
 	passport.authenticate('saml', {
-		successRedirect: '/',
+		successRedirect: 'http://localhost:3000',
 		failureRedirect: '/login'
 	})
 );
@@ -76,11 +76,14 @@ router.post('/login/callback',
 	failureFlash: true,
 	}),
 	function(req, res){
-		res.redirect('/')
+		res.redirect('http://localhost:3000')
 	}
 );
 
 router.get('/logout', (req,res)=> {
+
+  // look up user in mongo and drop
+
   samlStrategy.logout(req, (err, request)=> {
     if (!err) {
       //local logout
