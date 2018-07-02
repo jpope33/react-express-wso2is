@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
+
 // EXAMPLE CLASS
 class AutoRedirectExample extends React.Component {
   constructor(props) {
@@ -24,10 +25,20 @@ class AutoRedirectExample extends React.Component {
 
 
 
+
+
+
+
+
+
+
+
+
 // APP MIMIC CLASS
 class ExpressAuthCheck extends React.Component {
   constructor(props) {
     super(props);
+    this.followExpressRedirect = React.createRef();
   }
 
   state = {
@@ -37,6 +48,12 @@ class ExpressAuthCheck extends React.Component {
   componentDidMount() {
     this.fetchAuthStatus()
       .then(response => this.setState({ status: response.isLoggedIn }))
+      .then(()=>{
+        if (!this.state.status) {
+          console.log("cdm" + !this.state.status);
+          this.followExpressRedirect.current.click();
+        }
+      })
       .catch(err => console.log(err));
   }
 
@@ -57,7 +74,7 @@ class ExpressAuthCheck extends React.Component {
               <input type="submit" value="Logout"/>
               </form>
     }else {
-      return <a href = 'http://localhost:3001/saml/login'>Login</a>
+      return <a ref={this.followExpressRedirect} href = 'http://localhost:3001/saml/login'>Login</a>
     }
   }
 }
@@ -65,7 +82,7 @@ class ExpressAuthCheck extends React.Component {
 class App extends Component {
   render() {
     // Toggle AutoRedirectExample and ExpressAuthCheck
-    if (false) {
+    if (true) {
       return <ExpressAuthCheck/>
     }else {
       return <AutoRedirectExample/>
