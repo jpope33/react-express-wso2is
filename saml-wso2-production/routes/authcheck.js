@@ -2,11 +2,14 @@ const router = require('express').Router();
 
 router.get('/', (req,res)=>{
   if (req.isAuthenticated()) {
-    res.send({authStatus: 'Logged In'});
+    res.send({isLoggedIn:true});
+    //console.log("Current Authenticated User: " + JSON.stringify(req.user));
 	}else {
-    res.send({authStatus: 'Not Logged In'});
+    res.send({isLoggedIn:false});
+    //console.log("Unauthenticated User");
 	}
-  console.log("Current User: " + JSON.stringify(req.user));
 })
 
 module.exports = router;
+
+// NOW WORKING
