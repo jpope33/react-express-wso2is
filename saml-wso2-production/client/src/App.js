@@ -26,31 +26,23 @@ class AutoRedirectExample extends React.Component {
 
 
 
-
-
-
-
-
-
-
-
 // APP MIMIC CLASS
 class ExpressAuthCheck extends React.Component {
   constructor(props) {
     super(props);
-    this.followExpressRedirect = React.createRef();
+    this.followExpressRedirect = React.createRef();// redirect anchor ref
   }
 
   state = {
-    status: false
+    authenticatedInState: false
   }
 
   componentDidMount() {
     this.fetchAuthStatus()
-      .then(response => this.setState({ status: response.isLoggedIn }))
+      .then(response => this.setState({ authenticatedInState: response.authenticatedInExpress }))
       .then(()=>{
-        if (!this.state.status) {
-          console.log("cdm" + !this.state.status);
+        if (!this.state.authenticatedInState) { // perform redirect if not authenticated
+          //console.log("cdm" + !this.state.authenticatedInState);
           this.followExpressRedirect.current.click();
         }
       })
@@ -62,14 +54,14 @@ class ExpressAuthCheck extends React.Component {
     const body = await response.json();
 
     // THIS MAY HELP, Remove .then from this.fetchAuthStatus method
-    //await this.setState({status: body.isLoggedIn});
+    //await this.setState({authenticatedInState: body.authenticatedInExpress});
 
     if (response.status !== 200) throw Error(body.message);
     return body;
   }
 
   render() {
-    if (this.state.status) {
+    if (this.state.authenticatedInState) {
       return  <form action='http://localhost:3001/saml/logout'>
               <input type="submit" value="Logout"/>
               </form>

@@ -2,10 +2,10 @@ const router = require('express').Router();
 
 router.get('/', (req,res)=>{
   if (req.isAuthenticated()) {
-    res.send({isLoggedIn:true});
+    res.send({authenticatedInExpress:true});
     //console.log("Current Authenticated User: " + JSON.stringify(req.user));
 	}else {
-    res.send({isLoggedIn:false});
+    res.send({authenticatedInExpress:false});
     //console.log("Unauthenticated User");
 	}
 })
