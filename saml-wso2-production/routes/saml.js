@@ -13,6 +13,7 @@ passport.deserializeUser((user,done)=> {
 });
 
 const samlStrategy = new SamlStrategy({
+
   // strategy options
   issuer: 'WSO2app',
 
@@ -27,9 +28,9 @@ const samlStrategy = new SamlStrategy({
   signatureAlgorithm: 'sha256',
 
   // public cert .pem format, removed --HEADER-- and --FOOTER--
-	cert: fs.readFileSync('/home/jonathan/Desktop/NewKeyStuff/serverCertTwo.pem', 'utf-8'),
+	//cert: fs.readFileSync('/home/jonathan/Desktop/NewKeyStuff/serverCertTwo.pem', 'utf-8'),
   // private cert .pem format
-  privateCert: fs.readFileSync('/home/jonathan/Desktop/NewKeyStuff/clientKeyDecryptTwo.pem', 'utf-8')
+  //privateCert: fs.readFileSync('/home/jonathan/Desktop/NewKeyStuff/clientKeyDecryptTwo.pem', 'utf-8')
 
 
 }, (profile, done)=> {
